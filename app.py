@@ -4,9 +4,11 @@ import numpy as np
 from PIL import Image
 import time
 from yolov4 import Detector
+from NLP.nlp_dl_training import nlp_dl_training
 
 global img
 global d
+global model
 
 app = Flask(__name__)
 
@@ -33,7 +35,31 @@ def darknet():
     return res
 
 
+@app.route('/bert')
+def bert():
+    params = {
+        "model": model,
+        "nclasses": nclasses,
+        "HMM": True,
+        "use_paddle": False
+    }
+    logits, pred, ty = ndt.nlp_Bert_Predict(**params)
+
+    return logits, pred, ty
+
+
 if __name__ == '__main__':
-    d = Detector(config_path='./darknet/cfg/yolov4-tiny.cfg', weights_path='./darknet/yolov4.weights',
+    d = Detector(config_path='./darknet/cfg/yolov4.cfg', weights_path='./darknet/yolov4.weights',
                  meta_path='./darknet/cfg/coco.data', lib_darknet_path='./darknet/libdarknet.so', batch_size=1, gpu_id=0)
-    app.run(host='0.0.0.0', port=5000)
+
+    ndt = nlp_dl_training()
+    params = {
+        "corpus": 'comment_zh_tw.csv',
+        "HMM": True,
+        "use_paddle": False,
+        "epochs": 1
+    }
+    model, nclasses, evaluate_loss, logits, pred, ty_test = \
+        ndt.nlp_Bert_Build(**params)
+
+    app.run(host='0.0.0.0', port=5000, debug=True)
