@@ -7,6 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+yoloSettings/yolov4-BukaCa_last.weights
 darknet/
 .Python
 build/

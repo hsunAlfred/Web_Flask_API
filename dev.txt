@@ -6,4 +6,4 @@ sed -i 's/OPENCV=0/OPENCV=1/' Makefile
 sed -i 's/LIBSO=0/LIBSO=1/' Makefile
 make
 wget https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights
-pip install yolo-v4
+wget https://drive.google.com/drive/folders/1PJCYQL8oZjFqBiLeHoJ7KYpt4Roi_aBi

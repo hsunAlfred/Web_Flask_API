@@ -1,0 +1,6 @@
+classes=15
+train=/content/data/train_all_folder/train.txt
+test=C:\Users\TibeMe_user\Desktop\BukaCa\data\ImageSets\Main\test\test.txt
+valid=/content/data/val_all_folder/val.txt
+names=./yoloSettings/BukaCa.names
+backup=/content/drive/MyDrive/Colab_data_storage/darknet/backup
