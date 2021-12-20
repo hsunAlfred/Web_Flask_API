@@ -69,10 +69,11 @@ def load_images(images_path):
     In other case, it's a folder, return a list with names of each
     jpg, jpeg and png file
     """
-    input_path_extension = images_path.split('.')[-1]
+
     if "data:image/jpeg;base64" in str(images_path):
         return [images_path]
-    elif input_path_extension in ['jpg', 'jpeg', 'png']:
+    input_path_extension = images_path.split('.')[-1]
+    if input_path_extension in ['jpg', 'jpeg', 'png']:
         return [images_path]
     elif input_path_extension == "txt":
         with open(images_path, "r") as f:
@@ -112,7 +113,7 @@ def image_detection(image_path, network, class_names, class_colors, thresh):
     darknet_image = darknet.make_image(width, height, 3)
     if "data:image/jpeg;base64" in image_path:
         image = base64.b64decode(
-            str(image_path).replace("data:image/jpeg;base64", ''))
+            str(image_path).replace("data:image/jpeg;base64,", ''))
         image_rgb = np.fromstring(image, np.uint8)
     else:
         image = cv2.imread(image_path)

@@ -41,14 +41,16 @@ def hello():
 @app.route('/yolo', methods=['POST', 'GET'])
 def yolo():
     if request.method == 'GET':
-        img_64 = request.args.get('img').replace(" ", "+")
-        
-        #with open('./yoloSettings/temp.jpg', 'wb') as f:
-        #    img_data = base64.b64decode(img_64)
-        #    f.write(img_data)
+        img_64 = request.args.get('img').replace(
+            ' ', '+').replace("data:image/jpeg;base64,", '')
 
-        #res = di.main(targetFig="./yoloSettings/temp.jpg")
-        res = di.main(targetFig=img_64)
+        with open('./yoloSettings/temp.jpg', 'wb') as f:
+            img_data = base64.b64decode(img_64)
+            f.write(img_data)
+
+        res = di.main(targetFig="./yoloSettings/temp.jpg")
+
+        # res = di.main(targetFig=img_64)
         return jsonify(res[1])
     else:
         return 'connect success'
