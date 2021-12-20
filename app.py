@@ -40,7 +40,7 @@ def hello():
 
 @app.route('/yolo', methods=['POST', 'GET'])
 def yolo():
-    if request.method == 'POST':
+    if request.method == 'GET':
         img_64 = request.args.get('img')
         print(img_64)
 
