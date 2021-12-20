@@ -49,7 +49,7 @@ def yolo():
             f.write(img_data)
 
         res = di.main(targetFig="./yoloSettings/temp.jpg")
-
+        
         # res = di.main(targetFig=img_64)
         return jsonify(res[1])
     else:
