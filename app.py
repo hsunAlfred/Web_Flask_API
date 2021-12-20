@@ -50,7 +50,7 @@ def yolo():
 
         res = di.main(targetFig="./yoloSettings/temp.jpg")
 
-        # res = di.main(targetFig=img_64)
+        #res = di.main(targetFig=img_64)
         return jsonify(res[1])
     else:
         return 'connect success'
@@ -72,8 +72,8 @@ def yolo():
 
 
 if __name__ == '__main__':
-    # d = Detector(config_path='./darknet/cfg/yolov4.cfg', weights_path='./darknet/yolov4.weights',
-    #              meta_path='./darknet/cfg/coco.data', lib_darknet_path='./darknet/libdarknet.so', batch_size=1, gpu_id=0)
+    # d = Detector(config_path='./yoloSettings/yolov4-BukaCa.cfg', weights_path='./yoloSettings/yolov4-BukaCa_last.weights',
+    #              meta_path='./yoloSettings/BukaCa.data', lib_darknet_path='./darknet/libdarknet.so', batch_size=1, gpu_id=0)
 
     # ndt = nlp_dl_training()
     # params = {
