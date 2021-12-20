@@ -7,3 +7,4 @@ sed -i 's/LIBSO=0/LIBSO=1/' Makefile
 make
 wget https://github.com/AlexeyAB/darknet/releases/download/darknet_yolo_v3_optimal/yolov4.weights
 wget https://drive.google.com/drive/folders/1PJCYQL8oZjFqBiLeHoJ7KYpt4Roi_aBi
+ sudo wget "https://drive.google.com/u/0/uc?export=download&confirm=84jM&id=1QmPNQ4I10E4pzRzXbyHIatC-bWMvKg2d" -O "yolov4-BukaCa_last.weights"

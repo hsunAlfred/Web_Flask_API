@@ -42,6 +42,7 @@ def hello():
 def yolo():
     if request.method == 'POST':
         img_64 = request.args.get('img')
+        print(img_64)
 
         with open('./yoloSettings/temp.jpg', 'wb') as f:
             img_data = base64.b64decode(
