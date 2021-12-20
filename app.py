@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import jsonify
 
 import numpy as np
 from PIL import Image
@@ -44,8 +45,10 @@ def bert():
         "use_paddle": False
     }
     logits, pred, ty = ndt.nlp_Bert_Predict(**params)
+    
+    #rest = {"logits":list(logits),"pred":list(pred),"ty":list(ty)}
 
-    return logits, pred, ty
+    return "Done"
 
 
 if __name__ == '__main__':
@@ -54,7 +57,7 @@ if __name__ == '__main__':
 
     ndt = nlp_dl_training()
     params = {
-        "corpus": 'comment_zh_tw.csv',
+        "corpus": './NLP/comment_zh_tw.csv',
         "HMM": True,
         "use_paddle": False,
         "epochs": 1

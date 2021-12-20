@@ -1,0 +1,39 @@
+
+
+HMM_True_paddle_True
+cross value:0.488
+accuracy score:0.432
+confusion matrix
+[[45 34  0  9  5]
+ [26 37  0 22 13]
+ [ 0  0  0  1  0]
+ [13 20  0 44 35]
+ [ 6 11  0 36 50]]
+
+HMM_True_paddle_False
+cross value:0.504
+accuracy score:0.491
+confusion matrix
+[[55 26  9  5]
+ [22 41 22 11]
+ [ 9 12 52 19]
+ [ 3 11 58 52]]
+
+HMM_False_paddle_True
+cross value:0.471
+accuracy score:0.533
+confusion matrix
+[[64 26  0 13  8]
+ [22 42  0 23 11]
+ [ 0  0  0  1  0]
+ [ 6 13  0 51 33]
+ [ 6  2  0 26 60]]
+
+HMM_False_paddle_False
+cross value:0.496
+accuracy score:0.484
+confusion matrix
+[[63 27  8  8]
+ [33 37 32 11]
+ [ 5 10 43 30]
+ [ 5  3 38 54]]
