@@ -51,6 +51,7 @@ def yolo():
         res = di.main(targetFig="./yoloSettings/temp.jpg")
 
         #res = di.main(targetFig=img_64)
+
         return jsonify(res[1])
     else:
         return 'connect success'
