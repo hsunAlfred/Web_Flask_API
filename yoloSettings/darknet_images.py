@@ -255,7 +255,7 @@ def main(targetFig="./yoloSettings/test1.jpg", batch_size=1, weights="./yoloSett
             if cv2.waitKey() & 0xFF == ord('q'):
                 break
         index += 1
-
+        print(detections)
         return image, detections
 
 
