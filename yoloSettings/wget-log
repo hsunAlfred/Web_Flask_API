@@ -1,0 +1,6 @@
+--2021-12-20 15:47:48--  https://drive.google.com/u/0/uc?export=download
+Resolving drive.google.com (drive.google.com)... 142.251.10.101, 142.251.10.100, 142.251.10.113, ...
+Connecting to drive.google.com (drive.google.com)|142.251.10.101|:443... connected.
+HTTP request sent, awaiting response... 400 Bad Request
+2021-12-20 15:47:48 ERROR 400: Bad Request.
+

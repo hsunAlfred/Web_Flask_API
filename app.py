@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 import numpy as np
 from PIL import Image
 import time
-from yolov4 import Detector
+#from yolov4 import Detector
 # from NLP.nlp_dl_training import nlp_dl_training
 from yoloSettings import darknet_images as di
 
