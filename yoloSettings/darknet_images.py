@@ -255,10 +255,10 @@ def main(targetFig="./yoloSettings/test1.jpg", batch_size=1, weights="./yoloSett
             if cv2.waitKey() & 0xFF == ord('q'):
                 break
         index += 1
-        print(image)
-        print(detections)
-        print(class_colors)
-        return image, detections, class_names, class_colors
+        # print(image)
+        # print(detections)
+        # print(class_colors)
+        return base64.b64encode(image), detections, class_names, class_colors
 
 
 if __name__ == "__main__":
