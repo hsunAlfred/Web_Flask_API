@@ -49,7 +49,7 @@ def yolo():
             f.write(img_data)
 
         image, detections, class_names, class_colors  = di.main(targetFig="./yoloSettings/temp.jpg")
-        res = {"image":image.tolist(),"detections":detections, "class_names":class_names, "class_colors":class_colors}
+        res = {"image":str(image),"detections":detections, "class_names":class_names, "class_colors":class_colors}
         #res = di.main(targetFig=img_64)
 
         return jsonify(res)
