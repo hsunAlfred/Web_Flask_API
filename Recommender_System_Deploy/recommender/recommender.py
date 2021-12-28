@@ -1,6 +1,7 @@
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy
 
+
 def RCMD(new_rec, ratelist):
 
     # #pip install mysql-connector-python
@@ -47,11 +48,11 @@ def RCMD(new_rec, ratelist):
     #     original_list.append(tmp_list)
     #     tmp_list = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     #     t = t+1
-    original_list = [[1,1,1,1,1,0,0,0,0,0,0,0,0,0,0], [1,0,1,0,0,1,1,1,1,0,0,0,1,1,1], [1,0,1,0,0,1,1,1,1,0,0,0,1,1,1]]
-    print(original_list)
+    original_list = [[1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [
+        1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1], [1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1]]
+    # print(original_list)
 
-
-    #計算新的紀錄與所有歷史紀錄的內稽
+    # 計算新的紀錄與所有歷史紀錄的內稽
 
     similarity_list = []
     for a in original_list:
@@ -65,18 +66,18 @@ def RCMD(new_rec, ratelist):
 
         similarity_list.append(inner_product[0][0])
 
-
-    print(similarity_list)
-    print(max(similarity_list))
+    # print(similarity_list)
+    # print(max(similarity_list))
     bendom = []
     for similarity_index in range(len(similarity_list)):
         if similarity_list[similarity_index] == max(similarity_list):
             bendom.append(original_list[similarity_index])
     # print(bendom)
 
-    final_bendom = [sum([j[i] for j in bendom])/(len(bendom)) for i in range(len(bendom[0]))]
-    print(final_bendom)
-    return(final_bendom,ratelist)
+    final_bendom = [sum([j[i] for j in bendom])/(len(bendom))
+                    for i in range(len(bendom[0]))]
+    # print(final_bendom)
+    return(final_bendom, ratelist)
 
 
-RCMD([1,0,1,0,0,1,1,1,1,0,0,0,1,1,1],[])
+RCMD([1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1], [])

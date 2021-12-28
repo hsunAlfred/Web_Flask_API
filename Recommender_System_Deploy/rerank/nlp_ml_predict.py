@@ -1,9 +1,9 @@
 from typing import final
 from joblib import load
-from nlp_frame import nlp_frame
+from rerank import nlp_frame
 
 
-class nlp_ml_predict(nlp_frame):
+class nlp_ml_predict(nlp_frame.nlp_frame):
     def __init__(self) -> None:
         super().__init__()
 
@@ -30,12 +30,6 @@ if __name__ == "__main__":
     }
 
     tex, res = nmp.predict(**params)
-    final_res = []
-    for r in res:
-        if r>=4:
-            final_res.append(1)
-        elif r == 3:
-            final_res.append(0)
-        elif r <= 2:
-            final_res.append(-1)
+    final_res = nmp.toThreeClass(res)
+
     print(params['predictList'], final_res)

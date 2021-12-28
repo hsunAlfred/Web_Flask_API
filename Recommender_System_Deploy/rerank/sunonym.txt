@@ -1,0 +1,15 @@
+drumstick,雞腿
+rib,排骨
+salmon,鮭魚,三文魚
+sausage,香腸
+broccoli,青花菜,西蘭花,綠花菜,綠花椰菜,百加利
+cauliflower,菜花,白花椰菜
+corned egg,滷蛋,魯蛋
+poached egg,荷包蛋
+boiled egg,水煮蛋
+bean sprouts,豆芽
+tomato,番茄
+green pepper,甜椒,青椒,彩椒
+eggplant,茄,矮瓜,吊菜,落蘇
+beans,四季豆,豆子
+rice,飯
