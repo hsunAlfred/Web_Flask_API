@@ -1,4 +1,3 @@
-from typing import final
 from joblib import load
 try:
     from Recommender_System_Deploy.rerank import nlp_frame
