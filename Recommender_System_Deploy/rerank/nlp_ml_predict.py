@@ -1,6 +1,12 @@
 from typing import final
 from joblib import load
-from rerank import nlp_frame
+try:
+    from Recommender_System_Deploy.rerank import nlp_frame
+except:
+    try:
+        from rerank import nlp_frame
+    except:
+        raise
 
 
 class nlp_ml_predict(nlp_frame.nlp_frame):
