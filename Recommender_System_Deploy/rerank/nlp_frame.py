@@ -70,9 +70,9 @@ class nlp_frame:
     @staticmethod
     def toThreeClass(xs):
         for x in xs:
-            if x > + 4:
-                yield 3/2
+            if x >= 4:
+                yield 3
             elif x == 3:
-                yield 2/2
+                yield 2
             else:
-                yield 1/2
+                yield 1

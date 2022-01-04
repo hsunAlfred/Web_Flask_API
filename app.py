@@ -11,6 +11,7 @@ global model
 global rs
 
 app = Flask(__name__)
+rs = Recommender_System()
 
 
 @app.route('/')
@@ -44,7 +45,7 @@ def recomm():
     if request.method == 'POST':
         params = {
             "thisBendom": request.args.get('thisBendom'),
-            "ratting": request.args.get('ratting')
+            "rattingStrs": request.args.get('rattingStrs')
         }
         res = rs.run(**params)
         return jsonify(res)
@@ -53,6 +54,4 @@ def recomm():
 
 
 if __name__ == '__main__':
-    rs = Recommender_System()
-
     app.run(host='0.0.0.0', port=5000, debug=True)

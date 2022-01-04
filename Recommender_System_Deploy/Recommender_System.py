@@ -15,6 +15,7 @@ except:
         raise
 
 from random import choice
+import pandas as pd
 
 
 class Recommender_System:
@@ -26,69 +27,71 @@ class Recommender_System:
 
         self.__nmp = nlp_ml_predict.nlp_ml_predict()
 
-        self.__derivativeFood = [
-            ["蜜汁雞腿", "滷雞腿"],
-            ["蜜汁排骨", "滷排骨"],
-            ["煎鮭魚", "燻鮭魚"],
-            ["香腸炒飯"],
-            ["炒綠花椰菜"],
-            ["炒白花椰菜"],
-            ["滷蛋"],
-            ["荷包蛋"],
-            ["水煮蛋"],
-            ["炒豆芽"],
-            ["番茄炒蛋", "番茄肉醬義大利麵"],
-            ["炒青椒"],
-            ["魚香茄子", "涼拌茄子"],
-            ["蒜蓉四季豆", "水煮四季豆"],
-            ["薑黃飯", "糙米飯", "白飯"],
-        ]
+        self.__derivativeFood = {}
+        df = pd.read_csv(
+            "./Recommender_System_Deploy/rerank/derivativeFood.csv", encoding='utf-8')
 
-    def __getRecommender(self, thisBendom, ratting):
+        for row in range(df.shape[0]):
+            k = df.iloc[row, ]['deri']
+            v = df.iloc[row, ]['food']
+            if k in self.__derivativeFood.keys():
+                self.__derivativeFood[k].append(v)
+            else:
+                self.__derivativeFood[k] = [v]
+
+    def __getRecommender(self, thisBendom, rattingStrs):
         bendom_ele, rattings = \
-            recommender.RCMD(thisBendom, ratting)
+            recommender.RCMD(thisBendom, rattingStrs)
 
         return bendom_ele, rattings
 
-    def __rerankRecommender(self, bendom_ele, rattings):
+    def __rerankRecommender(self, bendom_ele, rattingStrs):
         '''
         return first three [rate and food_id] in list
         '''
         params = {
             "modelPath": './Recommender_System_Deploy/rerank/1640536039.7400753.joblib',
             "vectPath": './Recommender_System_Deploy/rerank/vect_1640536039.7400753.vect',
-            "predictList": rattings,
+            "predictList": rattingStrs,
             "h": True,
             "u": False
         }
 
         tex, ratio = self.__nmp.predict(**params)
+        # final_ratio -> 3 2 1
         final_ratio = tuple(self.__nmp.toThreeClass(ratio))
 
+        # bendom_ele_rerank = [[便當分數, 設定便當index(1-15)]]
         bendom_ele_rerank = [[i, -1] for i in bendom_ele]
-        for ratting, ratio in zip(rattings, final_ratio):
-            #print(ratting, ratio)
+        for rattingStr, ratio in zip(rattingStrs, final_ratio):
             for i in range(len(self.__sunonym)):
+                # 設定便當index(1-15)
                 bendom_ele_rerank[i][1] = i+1
                 for suno in self.__sunonym[i]:
-                    if suno in ratting:
+                    if suno in rattingStr:
+                        # 便當分數
                         bendom_ele_rerank[i][0] += ratio
                         break
         bendom_ele_rerank.sort(key=lambda x: x[0], reverse=True)
-
+        bendom_ele_rerank = [
+            ber for ber in bendom_ele_rerank if ber[1] not in [4, 6, 8, 9, 15]]
         return bendom_ele_rerank[:3]
 
     def __getDerivative(self, bendom_ele_rerank):
-        return "-".join([choice(self.__derivativeFood[index_p1-1])
-                         for rate, index_p1 in bendom_ele_rerank])
+        res = []
+        for rate, index_p1 in bendom_ele_rerank:
+            if index_p1 in self.__derivativeFood:
+                res.append(choice(self.__derivativeFood[index_p1]))
 
-    def run(self, thisBendom: str, ratting: str):
+        return ":".join(res)
+
+    def run(self, thisBendom: str, rattingStrs: str):
         run_params = {
-            "thisBendom": [int(i) for i in thisBendom.split("-")],
-            "ratting": ratting.split("-")
+            "thisBendom": [int(i) for i in thisBendom.split(":")],
+            "rattingStrs": rattingStrs.split(":")
         }
-        bendom_ele, rattings = self.__getRecommender(**run_params)
-        bendom_ele_rerank = self.__rerankRecommender(bendom_ele, rattings)
+        bendom_ele, rattingStrs = self.__getRecommender(**run_params)
+        bendom_ele_rerank = self.__rerankRecommender(bendom_ele, rattingStrs)
         recommender_result = self.__getDerivative(bendom_ele_rerank)
         return recommender_result
 
@@ -96,8 +99,8 @@ class Recommender_System:
 if __name__ == "__main__":
     rs = Recommender_System()
     params = {
-        "thisBendom": "1-0-1-0-0-1-1-1-1-0-0-0-1-1-1",
-        "ratting": "青椒也太難吃-番茄超級好吃"
+        "thisBendom": "1:0:1:0:0:1:1:1:1:0:0:0:1:1:1",
+        "rattingStrs": "青椒也太難吃:番茄超級好吃"
     }
     res = rs.run(**params)
     print(res)
