@@ -77,22 +77,22 @@ class Recommender_System:
             ber for ber in bendom_ele_rerank if ber[1] not in [4, 6, 8, 9, 15]]
         return bendom_ele_rerank[:3]
 
-    def __getDerivative(self, bendom_ele_rerank):
+    def __getDerivative(self, bendom_ele_rerank, sep):
         res = []
         for rate, index_p1 in bendom_ele_rerank:
             if index_p1 in self.__derivativeFood:
                 res.append(choice(self.__derivativeFood[index_p1]))
 
-        return ":".join(res)
+        return sep.join(res)
 
-    def run(self, thisBendom: str, rattingStrs: str):
+    def run(self, thisBendom: str, rattingStrs: str, sep: str = ":"):
         run_params = {
-            "thisBendom": [int(i) for i in thisBendom.split(":")],
-            "rattingStrs": rattingStrs.split(":")
+            "thisBendom": [int(i) for i in thisBendom.split(sep)],
+            "rattingStrs": rattingStrs.split(sep)
         }
         bendom_ele, rattingStrs = self.__getRecommender(**run_params)
         bendom_ele_rerank = self.__rerankRecommender(bendom_ele, rattingStrs)
-        recommender_result = self.__getDerivative(bendom_ele_rerank)
+        recommender_result = self.__getDerivative(bendom_ele_rerank, sep)
         return recommender_result
 
 
@@ -100,7 +100,8 @@ if __name__ == "__main__":
     rs = Recommender_System()
     params = {
         "thisBendom": "1:0:1:0:0:1:1:1:1:0:0:0:1:1:1",
-        "rattingStrs": "青椒也太難吃:番茄超級好吃"
+        "rattingStrs": "青椒也太難吃:番茄超級好吃",
+        "sep": ":"
     }
     res = rs.run(**params)
     print(res)

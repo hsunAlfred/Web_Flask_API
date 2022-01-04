@@ -47,6 +47,11 @@ def recomm():
             "thisBendom": request.args.get('thisBendom'),
             "rattingStrs": request.args.get('rattingStrs')
         }
+        try:
+            params['sep'] = request.args.get('sep')
+        except:
+            params['sep'] = ":"
+
         res = rs.run(**params)
         return jsonify(res)
     else:
