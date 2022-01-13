@@ -2,6 +2,7 @@ import requests
 import json
 
 url = "http://34.124.166.150:22014/recomm"
+url = "http://localhost:22014/recomm"
 
 res = requests.post(url, params={
     "sep": "-",

@@ -4,9 +4,9 @@ from yoloSettings import darknet_images as di
 from Recommender_System_Deploy.Recommender_System import Recommender_System
 
 import base64
-import sys
 
-sys.path.append("/home/forsharestudy/Web_Flask_API/Recommender_System_Deploy")
+import os
+input(os.getcwd())
 
 global img
 global d

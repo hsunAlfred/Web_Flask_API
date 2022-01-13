@@ -1,8 +1,11 @@
 try:
-    import recommender 
+    from Recommender_System_Deploy.recomm import recommender
 except:
-    raise
-            
+    try:
+        from recomm import recommender
+    except:
+        raise
+
 
 try:
     from Recommender_System_Deploy.rerank import nlp_ml_predict
@@ -38,7 +41,7 @@ class Recommender_System:
                 self.__derivativeFood[k] = [v]
 
         # 預載入DB資料
-        self.RCMD = recommender.recommender.RCMD()
+        self.RCMD = recommender.RCMD()
 
     def __getRecommender(self, thisBendom, rattingStrs):
         bendom_ele, rattings = \
