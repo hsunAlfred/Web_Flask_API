@@ -1,8 +1,8 @@
 try:
-    from Recommender_System_Deploy.recommender import recommender
+    from Recommender_System_Deploy.Recommenders import recommender
 except:
     try:
-        from recommender.recommender import RCMD
+        from Recommenders.recommender import RCMD
     except:
         raise
 
