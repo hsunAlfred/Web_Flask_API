@@ -41,11 +41,11 @@ class Recommender_System:
                 self.__derivativeFood[k] = [v]
 
         # 預載入DB資料
-        self.RCMD = recommender.RCMD()
+        self.rrr =  recommender.RCMD()
 
     def __getRecommender(self, thisBendom, rattingStrs):
         bendom_ele, rattings = \
-            self.RCMD.getRecomm(thisBendom, rattingStrs)
+            self.rrr.getRecomm(thisBendom, rattingStrs)
 
         return bendom_ele, rattings
 

@@ -1,16 +1,26 @@
+#import mysql.connector
+import pymysql.cursors
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy
-import mysql.connector
 
 
 class RCMD:
     def __init__(self):
+        #pass
+        
         # pip install mysql-connector-python
         # 偕同過濾 基於 item
-        connection = mysql.connector.connect(host='167.172.73.217',
+        #connection = mysql.connector.connect(host='167.172.73.217',
+        #                                     database='BukaCa_test',
+        #                                     user='admin',
+        #                                     password='BukaCa123!',
+        #                                     )
+        
+        connection = pymysql.connect(host='167.172.73.217',
                                              database='BukaCa_test',
                                              user='admin',
                                              password='BukaCa123!',
+                                             cursorclass=pymysql.cursors.DictCursor
                                              )
 
         self.original_list = []
@@ -20,13 +30,14 @@ class RCMD:
         sql3 = "select * from lunch_element"
         mycursor.execute(sql3)
         tmp_result = mycursor.fetchall()
-        # print(tmp_result)
+        tmp_result = tuple(tuple(dic.values()) for dic in tmp_result)
+        #print(tmp_result)
 
         sql_rec = "SELECT count(*) FROM BukaCa_test.lunch_rec"
         mycursor.execute(sql_rec)
         tmp_rec = mycursor.fetchall()
-        for _ in tmp_rec:
-            total_rec = int(_[0])
+        #print(tmp_rec)
+        total_rec = int(tmp_rec[0]['count(*)'])
 
         # 把原始紀錄變成 1*15的 list，原始便當只要有便當設為1，沒有設為0
 
@@ -40,9 +51,10 @@ class RCMD:
             t = t+1
         mycursor.close()
         connection.close()
-
+        
     def getRecomm(self, new_rec, ratelist):
         # 計算新的紀錄與所有歷史紀錄的內稽
+        #self.original_list = original_list = [[1,1,1,1,1,0,0,0,0,0,0,0,0,0,0], [1,1,1,0,0,1,0,1,1,0,0,0,1,1,1], [1,0,1,0,0,1,1,1,1,0,0,0,1,1,1]]
         similarity_list = []
         for a in self.original_list:
             #inner_product = 0
