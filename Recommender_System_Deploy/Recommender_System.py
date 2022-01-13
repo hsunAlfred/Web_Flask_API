@@ -2,7 +2,7 @@ try:
     from Recommender_System_Deploy.recommender import recommender
 except:
     try:
-        from recommender import recommender
+        from recommender.recommender import RCMD
     except:
         raise
 
@@ -40,7 +40,7 @@ class Recommender_System:
                 self.__derivativeFood[k] = [v]
 
         # 預載入DB資料
-        self.RCMD = recommender.RCMD()
+        self.RCMD = RCMD()
 
     def __getRecommender(self, thisBendom, rattingStrs):
         bendom_ele, rattings = \
