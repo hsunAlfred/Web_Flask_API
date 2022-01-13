@@ -6,7 +6,7 @@ from Recommender_System_Deploy.Recommender_System import Recommender_System
 import base64
 
 import os
-input(os.getcwd())
+# input(os.getcwd())
 
 global img
 global d
