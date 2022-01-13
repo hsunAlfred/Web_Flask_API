@@ -39,9 +39,12 @@ class Recommender_System:
             else:
                 self.__derivativeFood[k] = [v]
 
+        # 預載入DB資料
+        self.RCMD = recommender.RCMD()
+
     def __getRecommender(self, thisBendom, rattingStrs):
         bendom_ele, rattings = \
-            recommender.RCMD(thisBendom, rattingStrs)
+            self.RCMD.getRecomm(thisBendom, rattingStrs)
 
         return bendom_ele, rattings
 
@@ -104,4 +107,5 @@ if __name__ == "__main__":
         "sep": ":"
     }
     res = rs.run(**params)
+    print('\n\n\n')
     print(res)
