@@ -127,7 +127,10 @@ def image_detection(image_path, network, class_names, class_colors, thresh):
         network, class_names, darknet_image, thresh=thresh)
     darknet.free_image(darknet_image)
     image = darknet.draw_boxes(detections, image_resized, class_colors)
-    return cv2.cvtColor(image, cv2.COLOR_BGR2RGB), detections
+    return image, detections
+    #image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    
+    #return base64_str, detections
 
 
 def batch_detection(network, images, class_names, class_colors,
@@ -243,6 +246,7 @@ def main(targetFig="./yoloSettings/test1.jpg", batch_size=1, weights="./yoloSett
         image, detections = image_detection(
             image_name, network, class_names, class_colors, args.thresh
         )
+        
         # informations in detections(object name, percentage, bounging box)
 
         if args.save_labels:
@@ -258,7 +262,8 @@ def main(targetFig="./yoloSettings/test1.jpg", batch_size=1, weights="./yoloSett
         # print(image)
         # print(detections)
         # print(class_colors)
-        return base64.b64encode(image), detections, class_names, class_colors
+        
+        return image, detections, class_names, class_colors
 
 
 if __name__ == "__main__":

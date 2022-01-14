@@ -4,7 +4,7 @@ from yoloSettings import darknet_images as di
 from Recommender_System_Deploy.Recommender_System import Recommender_System
 
 import base64
-
+import cv2
 import os
 
 #input(os.getcwd())
@@ -35,10 +35,23 @@ def yolo():
         with open('./yoloSettings/temp.jpg', 'wb') as f:
             img_data = base64.b64decode(img_64)
             f.write(img_data)
-
+        
+        origin_img = cv2.imread('./yoloSettings/temp.jpg')
+        height, width = origin_img.shape[:2]
+        
         image, detections, class_names, class_colors = di.main(
             targetFig="./yoloSettings/temp.jpg")
-        res = {"image": str(image), "detections": detections,
+        
+        resized_image = cv2.resize(image,(width, height), interpolation = cv2.INTER_CUBIC)
+        
+        image = cv2.cvtColor(resized_image, cv2.COLOR_BGR2RGB)
+        base64_str = cv2.imencode('.jpg', image)[1].tostring()
+
+        image_64 = base64.b64encode(base64_str)
+        image_64 = image_64.decode('utf-8')
+        
+        
+        res = {"image": image_64, "detections": detections,
                "class_names": class_names, "class_colors": class_colors}
         #res = di.main(targetFig=img_64)
 
