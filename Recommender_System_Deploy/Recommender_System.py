@@ -41,7 +41,7 @@ class Recommender_System:
                 self.__derivativeFood[k] = [v]
 
         # 預載入DB資料
-        self.rrr =  recommender.RCMD()
+        self.rrr = recommender.RCMD()
 
     def __getRecommender(self, thisBendom, rattingStrs):
         bendom_ele, rattings = \
@@ -53,9 +53,17 @@ class Recommender_System:
         '''
         return first three [rate and food_id] in list
         '''
+        # params = {
+        #     "modelPath": './Recommender_System_Deploy/rerank/1640536039.7400753.joblib',
+        #     "vectPath": './Recommender_System_Deploy/rerank/vect_1640536039.7400753.vect',
+        #     "predictList": rattingStrs,
+        #     "h": True,
+        #     "u": False
+        # }
+
         params = {
-            "modelPath": './Recommender_System_Deploy/rerank/1640536039.7400753.joblib',
-            "vectPath": './Recommender_System_Deploy/rerank/vect_1640536039.7400753.vect',
+            "modelPath": './Recommender_System_Deploy/rerank/1642254722.262666.joblib',
+            "vectPath": './Recommender_System_Deploy/rerank/vect_1642254722.262666.vect',
             "predictList": rattingStrs,
             "h": True,
             "u": False
