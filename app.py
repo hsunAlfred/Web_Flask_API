@@ -41,7 +41,20 @@ def yolo():
         
         image, detections, class_names, class_colors = di.main(
             targetFig="./yoloSettings/temp.jpg")
-        
+            
+        new_detections = []
+        for food, confidence, bbox in detections:
+            x, y, w, h = bbox
+            
+            tem_x = x * (width/416)
+            tem_y = y * (height/416)
+            tem_w = w * (width/416)
+            tem_h = h * (height/416)
+            
+            temp = (food, confidence, (tem_x, tem_y, tem_w, tem_h))
+            new_detections.append(temp)
+            print(food, confidence, bbox)
+        print((width/416), (height/416))
         resized_image = cv2.resize(image,(width, height), interpolation = cv2.INTER_CUBIC)
         
         image = cv2.cvtColor(resized_image, cv2.COLOR_BGR2RGB)
@@ -51,10 +64,10 @@ def yolo():
         image_64 = image_64.decode('utf-8')
         
         
-        res = {"image": image_64, "detections": detections,
+        res = {"image": image_64, "detections": new_detections,
                "class_names": class_names, "class_colors": class_colors}
         #res = di.main(targetFig=img_64)
-
+        print(new_detections)
         return jsonify(res)
     else:
         return jsonify('yolo connect success')
