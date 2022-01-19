@@ -6,9 +6,7 @@ from Recommender_System_Deploy.Recommender_System import Recommender_System
 import base64
 import cv2
 import os
-
-#input(os.getcwd())
-
+import time
 
 
 
@@ -29,18 +27,19 @@ def hello():
 @app.route('/yolo', methods=['POST', 'GET'])
 def yolo():
     if request.method == 'POST':
+        picTime = time.time()
         img_64 = request.args.get('img').replace(
             ' ', '+').replace("data:image/jpeg;base64,", '')
 
-        with open('./yoloSettings/temp.jpg', 'wb') as f:
+        with open(f'./yoloSettings/temp{picTime}.jpg', 'wb') as f:
             img_data = base64.b64decode(img_64)
             f.write(img_data)
         
-        origin_img = cv2.imread('./yoloSettings/temp.jpg')
+        origin_img = cv2.imread(f'./yoloSettings/temp{picTime}.jpg')
         height, width = origin_img.shape[:2]
         
         image, detections, class_names, class_colors = di.main(
-            targetFig="./yoloSettings/temp.jpg")
+            targetFig=f"./yoloSettings/temp{picTime}.jpg")
             
         new_detections = []
         for food, confidence, bbox in detections:
